@@ -1,0 +1,165 @@
+.wrapper {
+    width: 85%;
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px 0 0 8px;
+    box-shadow: -2px 2px 2px #ccc;
+    background: #fff;
+}
+.coupon_title {
+    margin-top: 18px;
+    margin-left: 10px;
+    font-size: 24px;
+    color: #66afe9;
+}
+
+.start_time,
+.end_time {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #9E9E9E;
+}
+.tip {
+    height: 147px;
+    width: 170px;
+    position: relative;
+    flex: 0 0 100px;
+    text-align: center;
+    color: #ff4242;
+    padding: 13px 54px 15px 54px;
+    border-radius:0 8px 8px 0;
+    box-shadow: 2px 2px 2px #ccc;
+    background: #fff;
+    background-size: cover;
+}
+.split-line {
+    position: relative;
+    flex: 0 0 0;
+    border-left: 2px dashed #eee;
+    margin: 0 5px 0 3px;
+    background: #fff;
+}
+.split-line:before, .split-line:after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 8px;
+    background: #eee;
+    left: -9px;
+    z-index: 1;
+}
+.split-line:before {
+    border-radius: 0 0 8px 8px;
+    top: 0;
+}
+.split-line:after {
+    border-radius: 8px 8px 0 0;
+    bottom: 0;
+}
+.money {
+    margin-top: 23px;
+    font-weight: bold;
+    font-size: 24px;
+}
+.pay-line {
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit_container {
+    position: relative;
+}
+.edit_container>div {
+    position: absolute;
+    backface-visibility: hidden;
+    //当元素不面向屏幕时，不可见
+}
+.front {
+    transform: rotateY(0deg);
+}
+.back {
+    transform: rotateY(-180deg)
+}
+.edit_container:hover .front {
+    transform: rotateY(180deg);
+}
+.edit_container:hover .back {
+    transform: rotateY(0deg);
+}
+.front,
+.back {
+    background: #fff;
+    background-size: cover;
+    transition: all 1s;
+    display: flex;
+    border-radius: 6px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.button {
+    top: 40%;
+    white-space:nowrap;
+    transform: translateZ(40px);
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-weight: bold;
+    color: #fff;
+    padding: .5em 1em;
+    border-radius: 100px;
+    font: inherit;
+    background: linear-gradient(135deg, #1a9be6, #1a57e6);
+    border: none;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 300ms ease;
+}
+.button:before {
+    transition: 300ms ease;
+    position: absolute;
+    display: block;
+    content: '';
+    transform: translateZ(-40px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    border-radius: 100px;
+    left: 10px;
+    top: 16px;
+    box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);
+    background-color: rgba(26, 87, 230, 0.25);
+}
+.button:hover {
+    transform: translateZ(55px);
+}
+.button:hover:before {
+    transform: translateZ(-55px);
+}
+.button:active {
+    transform: translateZ(20px);
+}
+.button:active:before {
+    transform: translateZ(-20px);
+    top: 12px;
+}

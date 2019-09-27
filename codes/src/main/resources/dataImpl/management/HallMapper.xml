@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cinema.data.management.HallMapper">
+    <select id="selectAllHall" resultMap="Hall">
+        select * from hall
+    </select>
+    <select id="selectHallById" resultMap="Hall">
+        select * from hall where id = #{hallId}
+    </select>
+
+     <insert id="addHall" useGeneratedKeys="true" keyProperty="id">
+         insert into hall(`name`, `column`, `row`)
+         values (#{name}, #{column}, #{row})
+     </insert>
+
+    <update id="updateHall">
+        update hall
+        <set>
+            `name` = #{name},
+            `column` = #{column},
+            `row` = #{row}
+        </set>
+          where id=#{id}
+    </update>
+    <select id="isEngaged" resultMap="ScheduleItem">
+        select * from schedule where hall_id=#{id} and start_time > #{date}
+    </select>
+    <resultMap id="Hall" type="com.example.cinema.po.Hall">
+        <id column="id" property="id"/>
+    </resultMap>
+    <resultMap id="ScheduleItem" type="com.example.cinema.po.ScheduleItem">
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,15 @@
+.table-container {
+    width: 100%;
+    height:380px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.utils {
+    position: absolute;
+    display:inline;
+    align-items: center;
+    justify-content: space-between;
+    right: 20px;
+    bottom: 15px;
+}

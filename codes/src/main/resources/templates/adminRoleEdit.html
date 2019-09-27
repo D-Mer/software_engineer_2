@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>修改角色</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="/js/xadmin.js"></script>
+</head>
+
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form action="" method="post" class="layui-form layui-form-pane">
+            <div class="layui-form-item" style="display:none;">
+                <label for="id" class="layui-form-label">
+                    <span class="x-red">*</span>ID
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="id" name="id" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="identity" class="layui-form-label">
+                    <span class="x-red">*</span>身份
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="identity" name="identity" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>昵称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="username" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="password" class="layui-form-label">
+                    <span class="x-red">*</span>密码
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="password" name="password" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">
+                    拥有权限
+                </label>
+                <table class="layui-table layui-input-block">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="like1[write]" lay-skin="primary" lay-filter="father"
+                                   title="用户管理">
+                        </td>
+                        <td>
+                            <div class="layui-input-block">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户停用">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户删除">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户修改">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户列表">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影片管理"
+                                   lay-filter="father">
+                        </td>
+                        <td>
+                            <div class="layui-input-block">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影片添加">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影片删除">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影片上架">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="排片上映">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影厅管理"
+                                   lay-filter="father">
+                        </td>
+                        <td>
+                            <div class="layui-input-block">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影厅添加">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影厅删除">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影厅修改">
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="影厅查看">
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-submit="" lay-filter="edit">修改</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    var id = localStorage.getItem('tabId');
+    var rows = parent.document.getElementById('table').rows;
+    var flag = 0;
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].cells[0].innerHTML == id) {
+            flag = i;
+        }
+    }
+    var username = rows[flag].cells[1].innerHTML;
+    var password= rows[flag].cells[2].innerHTML;
+    var identity = rows[flag].cells[3].innerHTML;
+    $("#id").val(id);
+    $("#username").val(username);
+    $("#password").val(password);
+    $("#identity").val(identity);
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form, layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            username: function (value) {
+                if (value.length < 5) {
+                    return '昵称至少得5个字符啊';
+                }
+            },
+            password: [/(.+){6,12}$/, '密码必须6到12位']
+        });
+
+        //监听提交
+        form.on('submit(edit)', function (data) {
+            var form = {
+                id: $("#id").val(),
+                identity: $("#identity").val(),
+                username: $("#username").val(),
+                password: $("#password").val()
+            };
+
+            postRequest(
+                '/admin/updateUser',
+                form,
+                function (res) {
+                    if (res.success) {
+
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                function (error) {
+                    alert(JSON.stringify(error));
+                }
+            );
+            //异步发送提醒
+            layer.alert("更新成功", {icon: 6}, function () {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                xadmin.father_reload();
+                //关闭当前frame
+                parent.layer.close(index);
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+
+</html>

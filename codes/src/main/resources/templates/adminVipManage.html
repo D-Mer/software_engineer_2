@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员管理</title>
+
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/base.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="/css/common.css"/>
+    <link rel="stylesheet" href="/css/adminVip.css"/>
+    <link rel="stylesheet" href="/css/layout.css"/>
+    <link rel="stylesheet" href="/css/theme.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600">
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/adminVipManage.js"></script>
+    <script src="/lib/laydate/laydate.js"></script>
+    <script src="/js/jquery.step.js"></script>
+    <script src="/js/register.js"></script>
+    <script>
+        $(function () {
+            var step = $("#myStep").step({
+                animate: true,
+                initStep: 1,
+                speed: 1000
+            });
+        });
+    </script>
+    <script>
+        laydate.render({
+            elem: '#strategy-start-date-input',
+            format: 'yyyy-MM-dd'
+        });
+        laydate.render({
+            elem: '#strategy-end-date-input',
+            format: 'yyyy-MM-dd'
+        });
+        laydate.render({
+            elem: '#edit-strategy-start-date-input',
+            format: 'yyyy-MM-dd'
+        });
+        laydate.render({
+            elem: '#edit-strategy-end-date-input',
+            format: 'yyyy-MM-dd'
+        });
+    </script>
+
+</head>
+<body>
+<div class="main-container">
+    <div class="nav-left-container">
+        <div class="nav-user-container" style="margin-bottom: 50px;">
+            <img class="avatar-lg" src="/images/defaultAvatar.jpg"/>
+            <p class="title">Admin</p>
+        </div>
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation"><a href="/admin/movie/manage"><i class="icon-film"></i> 电影管理</a></li>
+            <li role="presentation"><a href="/admin/session/manage"><i class="icon-calendar"></i> 排片管理</a></li>
+            <li role="presentation"><a href="/admin/promotion/manage"><i class="icon-gift"></i> 活动管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/manage"><i class="icon-cogs"></i> 影院管理</a></li>
+            <li role="presentation"><a href="/admin/cinema/statistic"><i class="icon-bar-chart"></i> 影院统计</a></li>
+            <li role="presentation" class="active"><a href="#"><i class="icon-credit-card"></i> 会员管理</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="content-header">
+            <span class="title gray-text">会员管理</span>
+            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal"
+                    data-target="#strategyModal"><i class="icon-plus-sign"></i> 发布充值优惠策略
+            </button>
+        </div>
+        <div class="content-strategy">
+
+        </div>
+        <div class="content-header">
+            <span class="title gray-text">赠送优惠券</span>
+        </div>
+        <div class="content-presentCoupon">
+            <div class="steps_container w960 mt20">
+                <div id="processor">
+                    <ol class="processorBox oh">
+                        <li class="current">
+                            <div class="step_inner fl">
+                                <span class="icon_step">1</span>
+                                <h4>选择赠送对象</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step_inner">
+                                <span class="icon_step">2</span>
+                                <h4>指定优惠券</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step_inner fr">
+                                <span class="icon_step">3</span>
+                                <h4>赠送优惠券</h4>
+                            </div>
+                        </li>
+                    </ol>
+                    <div class="step_line"></div>
+                </div>
+                <div class="steps_content">
+                    <div id="step1" class="step">
+                        <div class="vip_container">
+                            <div class="row">
+                                <div class="span9">
+                                    <div class="module">
+                                        <div class="module-head">
+                                            <h3>会员筛选</h3>
+                                        </div>
+                                        <div class="module-option clearfix">
+                                            <form>
+                                                <div class="input-append pull-left">
+                                                    <input type="text" class="span3 form-control" id="target_amount"
+                                                           name="target_amount" placeholder="请输入赠送额度..."
+                                                           style="margin-left: 0;">
+                                                    <button type="submit" class="btn" id="vip-form-btn">
+                                                        <i class="icon-search"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="module-body">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toolBar">
+                            <a id="nextBtn" class="btn btn_primary">下一步</a>
+                        </div>
+                    </div><!-- // step1 end -->
+                    <div id="step2" class="step hide">
+                        <div class="coupon-container">
+                            <div class="coupon-row">
+
+                            </div>
+                        </div>
+                    </div><!-- // step2 end -->
+                    <div id="step3" class="step hide">
+
+                        <div class="step-content">
+                            <div class="step-list">
+                                <div class="apply-finish">
+                                    <div class="apply-finish-header">
+                                        <img src="/images/success.png">
+                                        <div class="apply-finish-msg">恭喜您，赠送成功！</div>
+                                    </div>
+                                    <div class="apply-finish-footer">
+                                        <p>页面将在<span id="times">5</span>秒钟后，跳转到<a href="http://localhost:8080/admin/cinema/vip" class="c-blue">会员管理中心</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- // step3 end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="strategyModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="strategyModalLabel">发布充值优惠策略</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="strategy-start-date-input"><span
+                                class="error-text">*</span>开始日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="strategy-start-date-input"
+                                   placeholder="请输入开始日期">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="strategy-end-date-input"><span
+                                class="error-text">*</span>结束日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="strategy-end-date-input"
+                                   placeholder="请输入结束日期">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="coupon-target-input"><span
+                                class="error-text">*</span>需满金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="coupon-target-input" placeholder="请输入需满金额">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="coupon-discount-input"><span
+                                class="error-text">*</span>优惠金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="coupon-discount-input" placeholder="请输入优惠金额">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="strategy-form-btn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editStrategyModal" tabindex="-1" role="dialog" aria-labelledby="movieModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="editStrategyModalLabel">修改充值优惠策略</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group" style="display:none;">
+                        <label class="col-sm-2 control-label" for="edit-strategy-id-input"><span
+                                class="error-text">*</span>优惠ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-strategy-id-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="edit-strategy-start-date-input"><span
+                                class="error-text">*</span>开始日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-strategy-start-date-input"
+                                   placeholder="请输入开始日期">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="edit-strategy-end-date-input"><span
+                                class="error-text">*</span>结束日期</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="edit-strategy-end-date-input"
+                                   placeholder="请输入结束日期">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="edit-coupon-target-input"><span
+                                class="error-text">*</span>需满金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="edit-coupon-target-input"
+                                   placeholder="请输入需满金额">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="edit-coupon-discount-input"><span
+                                class="error-text">*</span>优惠金额</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="edit-coupon-discount-input"
+                                   placeholder="请输入优惠金额">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="edit-strategy-form-btn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

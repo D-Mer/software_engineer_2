@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>历史消费记录</title>
+    <!-- Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <!-- font-asesome图标库 -->
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css"/>
+
+    <!-- 引入css样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/userBuy.css"/>
+
+    <!-- 引入js脚本文件 -->
+    <!-- jquery -->
+    <script src="/js/jquery.js"></script>
+    <!-- Bootstrap 核心 JavaScript 文件 -->
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/request.js"></script>
+    <script src="/js/userConsumeHistory.js"></script>
+</head>
+<body>
+<div class="nav-top-container">
+    <div class="nav-logo title">NJU-Se电影购票系统</div>
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/user/home">首页</a></li>
+        <li role="presentation"><a href="/user/movie">电影</a></li>
+    </ul>
+    <div class="btn-group">
+        <button class="nav-user-container btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="avatar-sm" src="/images/defaultAvatar.jpg" />
+            <span class="gray-text" style="vertical-align: middle">用户A&nbsp;<span class="caret"></span></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a href="/user/buy">电影票</a></li>
+            <li><a href="/user/member">卡包</a></li>
+            <li><a href="#">历史消费记录</a></li>
+            <li id="logout"><a href="#">登出</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-container">
+    <div class="card">
+        <div class="header">
+            <div class="title">会员卡历史充值记录</div>
+        </div>
+        <div>
+            <table class="table table-striped chargeInfo">
+                <thead>
+                <tr>
+                    <th>充值时间</th>
+                    <th>充值金额</th>
+                    <th>卡内余额</th>
+                </tr>
+                </thead>
+                <tbody id="charge-list-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h4 id="date-none-hint" style="display: none;">暂无会员卡充值记录</h4>
+    <div class="card">
+        <div class="header">
+            <div class="title">电影票消费记录</div>
+        </div>
+        <div>
+            <table class="table table-striped ticketInfo">
+                <thead>
+                <tr>
+                    <th>电影名</th>
+                    <th>时间</th>
+                    <th>查看详情</th>
+                </tr>
+                </thead>
+                <tbody id="ticket-list-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h4 id="date-none-hint2" style="display: none;">暂无电影票消费记录</h4>
+</div>
+
+
+<div class="modal fade" id="ticketInfo" tabindex="-1" role="dialog" aria-labelledby="ticketInfoLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ticketInfoModalLabel">影票详情</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tr>
+                        <th>电影名</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>座位号</th>
+                        <th>购票时间</th>
+                        <th>价格</th>
+                    </tr>
+                    </thead>
+                    <tbody id="ticketInfoShow">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="confirmBtn">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
